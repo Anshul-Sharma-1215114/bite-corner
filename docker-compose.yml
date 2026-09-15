@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: bite-corner-db
+    environment:
+      POSTGRES_USER: bitecorner
+      POSTGRES_PASSWORD: bitecorner
+      POSTGRES_DB: bitecorner
+    ports:
+      - "5433:5432"
+    volumes:
+      - bite_corner_pgdata:/var/lib/postgresql/data
+
+volumes:
+  bite_corner_pgdata:

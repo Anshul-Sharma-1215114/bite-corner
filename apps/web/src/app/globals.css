@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 112.5%;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper-50 text-ink font-body antialiased;
+    line-height: 1.55;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    line-height: 1.1;
+  }
+}
+
+@layer utilities {
+  .bg-shimmer {
+    background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+    background-size: 400px 100%;
+    background-repeat: no-repeat;
+  }
+}
