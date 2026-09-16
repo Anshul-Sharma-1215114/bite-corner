@@ -1,5 +1,5 @@
 import { prisma } from "../utils/prisma";
-import { env, isProd } from "../config/env";
+import { env } from "../config/env";
 
 const REQUEST_COOLDOWN_MS = 30_000;
 const MAX_VERIFY_ATTEMPTS = 5;
@@ -79,7 +79,10 @@ export async function requestOtp(phone: string): Promise<{ devCode?: string }> {
   });
   await otpProvider(phone, code);
 
-  return isProd ? {} : { devCode: code };
+  // TODO: stop returning this once WhatsApp delivery (whatsappOtpProvider)
+  // is actually configured with real credentials — shown on-screen for
+  // now as a stand-in since customers otherwise have no way to receive it.
+  return { devCode: code };
 }
 
 export async function verifyOtp(phone: string, code: string): Promise<boolean> {
