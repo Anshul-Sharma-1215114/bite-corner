@@ -8,9 +8,14 @@ import { isProd } from "../config/env";
 import { requestOtp, verifyOtp, OtpRateLimitError } from "../services/otp.service";
 import { assertNotLocked, recordFailedAttempt, clearAttempts, LoginRateLimitError } from "../services/login-rate-limit.service";
 
+// Frontend (Vercel) and API (Render) live on different domains in
+// production, so the auth cookie must be SameSite=None to be sent on
+// cross-site fetches — which in turn requires Secure (HTTPS-only, true
+// for both hosts in prod). Local/LAN dev keeps Lax since everything
+// there shares a hostname (see apps/web/src/lib/api-url.ts).
 const cookieOptions = {
   httpOnly: true,
-  sameSite: "lax" as const,
+  sameSite: (isProd ? "none" : "lax") as "none" | "lax",
   secure: isProd,
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
