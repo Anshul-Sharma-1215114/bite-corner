@@ -33,7 +33,7 @@ export async function assignDeliveryAgent(req: Request, res: Response) {
   if (!agent || agent.role !== "DELIVERY_AGENT") return res.status(400).json({ error: "Invalid delivery agent" });
   if (!agent.deliveryAgentProfile?.isActive) return res.status(400).json({ error: "This agent is deactivated" });
 
-  const updated = await prisma.order.update({ where: { id: order.id }, data: { deliveryAgentId: agent.id } });
+  const updated = await prisma.order.update({ where: { id: order.id }, data: { deliveryAgentId: agent.id, deliveryAcceptedAt: null } });
 
   const io: Server = req.app.get("io");
   const payload = { orderId: order.id, orderNumber: order.orderNumber, agentId: agent.id, agentName: agent.name, agentPhone: agent.phone };

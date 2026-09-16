@@ -203,6 +203,11 @@ model Order {
   coupon              Coupon?       @relation(fields: [couponId], references: [id])
   deliveryAgentId     String?
   deliveryAgent       User?         @relation("AgentOrders", fields: [deliveryAgentId], references: [id])
+  // Set when the assigned agent accepts the delivery. Null while pending
+  // (drives the agent-side alarm) — a rejection clears deliveryAgentId
+  // instead of setting a separate field, so the order goes back to
+  // unassigned for the admin to hand to someone else.
+  deliveryAcceptedAt  DateTime?
   specialInstructions String?
   placedAt            DateTime      @default(now())
   confirmedAt         DateTime?

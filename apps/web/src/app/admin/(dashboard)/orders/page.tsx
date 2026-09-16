@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getNextOrderStatuses, type OrderStatus } from "@bite-corner/shared";
 import { apiFetch } from "@/lib/api";
 import { getSocket } from "@/lib/socket";
@@ -20,9 +21,13 @@ interface Agent {
 const STATUS_FILTERS: (OrderStatus | "ALL")[] = ["ALL", "PLACED", "CONFIRMED", "PREPARING", "OUT_FOR_DELIVERY", "DELIVERED", "COMPLETED", "CANCELLED", "REJECTED"];
 
 export default function AdminOrdersPage() {
+  const searchParams = useSearchParams();
+  const initialStatus = searchParams.get("status") as OrderStatus | null;
   const [orders, setOrders] = useState<Order[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
-  const [statusFilter, setStatusFilter] = useState<OrderStatus | "ALL">("ALL");
+  const [statusFilter, setStatusFilter] = useState<OrderStatus | "ALL">(
+    initialStatus && STATUS_FILTERS.includes(initialStatus) ? initialStatus : "ALL"
+  );
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   function load() {

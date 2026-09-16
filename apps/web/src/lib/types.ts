@@ -90,6 +90,7 @@ export interface Order {
   review: { rating: number; comment: string | null } | null;
   deliveryAgentId?: string | null;
   deliveryAgent: { id: string; name: string; phone: string | null } | null;
+  deliveryAcceptedAt?: string | null;
   customer?: { id: string; name: string; phone: string | null };
 }
 

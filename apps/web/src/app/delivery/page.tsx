@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Phone, LogOut } from "lucide-react";
+import { Phone, LogOut, Bell } from "lucide-react";
 import { apiFetch } from "@/lib/api";
 import { getSocket } from "@/lib/socket";
 import { formatInr } from "@/lib/format";
 import type { Order } from "@/lib/types";
 import { useAuth } from "@/lib/auth-context";
+import { useOrderAlarm } from "@/lib/use-order-alarm";
 import { RoleGuard } from "@/components/role-guard";
 import { StatusBadge } from "@/components/status-badge";
 import { OrderStatusStepper } from "@/components/order-status-stepper";
@@ -38,16 +39,22 @@ function DeliveryContent() {
   }
   useEffect(load, []);
 
-  const active = orders?.filter((o) => ACTIVE_STATUSES.includes(o.status)) ?? [];
+  // Assigned but not yet accepted — this is what rings the alarm below.
+  const pending = orders?.filter((o) => ACTIVE_STATUSES.includes(o.status) && !o.deliveryAcceptedAt) ?? [];
+  const active = orders?.filter((o) => ACTIVE_STATUSES.includes(o.status) && o.deliveryAcceptedAt) ?? [];
   const history = orders?.filter((o) => !ACTIVE_STATUSES.includes(o.status)) ?? [];
+
+  useOrderAlarm(pending.length > 0);
 
   useEffect(() => {
     const socket = getSocket();
     socket.emit("agent:subscribe-self");
     for (const o of active) socket.emit("order:subscribe", o.id);
+    socket.on("order:agent-assigned", load);
     socket.on("order:status", load);
     socket.on("order:payment-status", load);
     return () => {
+      socket.off("order:agent-assigned", load);
       socket.off("order:status", load);
       socket.off("order:payment-status", load);
     };
@@ -61,6 +68,11 @@ function DeliveryContent() {
 
   async function markPaid(orderId: string) {
     await apiFetch(`/api/orders/${orderId}/mark-paid`, { method: "PATCH" });
+    load();
+  }
+
+  async function respondToAssignment(orderId: string, action: "accept" | "reject") {
+    await apiFetch(`/api/delivery/orders/${orderId}/${action}`, { method: "POST" });
     load();
   }
 
@@ -78,6 +90,31 @@ function DeliveryContent() {
       </header>
 
       <main className="mx-auto max-w-2xl px-4 py-6">
+        {pending.length > 0 && (
+          <div className="mb-6">
+            <h2 className="mb-3 flex items-center gap-1.5 font-display text-lg font-bold text-red-600">
+              <Bell className="h-4 w-4 animate-pulse" aria-hidden="true" /> New Delivery Request
+            </h2>
+            <div className="flex flex-col gap-3">
+              {pending.map((order) => (
+                <Card key={order.id} className="border-2 border-red-400 shadow-lifted">
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">#{order.orderNumber}</span>
+                    <StatusBadge status={order.status} />
+                  </div>
+                  <p className="mt-1 text-sm text-ink/70">{order.items.map((i) => `${i.quantity}x ${i.name}`).join(", ")}</p>
+                  {order.address && <p className="mt-1 text-sm text-ink/60">{order.address.line1}, {order.address.area}, {order.address.city}</p>}
+                  <p className="mt-2 font-bold text-red-600">{formatInr(order.totalAmount)}</p>
+                  <div className="mt-3 flex gap-2">
+                    <Button size="sm" onClick={() => respondToAssignment(order.id, "accept")}>Accept</Button>
+                    <Button size="sm" variant="outline" onClick={() => respondToAssignment(order.id, "reject")}>Reject</Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
         <h2 className="mb-3 font-display text-lg font-bold">Active Deliveries</h2>
         <div className="flex flex-col gap-3">
           {active.map((order) => (
