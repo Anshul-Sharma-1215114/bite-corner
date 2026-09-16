@@ -101,14 +101,26 @@ export default function AdminOrdersPage() {
 
                   <div className="mt-3 flex flex-wrap items-center gap-2">
                     {nextStatuses.length > 0 && (
-                      <select onChange={(e) => e.target.value && updateStatus(order.id, e.target.value as OrderStatus)} defaultValue="" className="rounded-lg border border-ink/15 px-2 py-1.5 text-sm">
-                        <option value="" disabled>Update status...</option>
+                      // A fully controlled select pinned to "" — it always snaps back
+                      // to the placeholder after firing an update, instead of visually
+                      // sticking on whichever option a browser last highlighted (which
+                      // showed as e.g. "CANCELLED" even when nothing had been chosen).
+                      <select
+                        value=""
+                        onChange={(e) => e.target.value && updateStatus(order.id, e.target.value as OrderStatus)}
+                        className="rounded-lg border border-ink/15 px-2 py-1.5 text-sm"
+                      >
+                        <option value="" disabled>Change status</option>
                         {nextStatuses.map((s) => <option key={s} value={s}>{s.replace(/_/g, " ")}</option>)}
                       </select>
                     )}
                     {order.type === "DELIVERY" && !["CANCELLED", "REJECTED", "DELIVERED", "COMPLETED"].includes(order.status) && (
-                      <select onChange={(e) => e.target.value && assignAgent(order.id, e.target.value)} defaultValue="" className="rounded-lg border border-ink/15 px-2 py-1.5 text-sm">
-                        <option value="" disabled>Assign agent...</option>
+                      <select
+                        value=""
+                        onChange={(e) => e.target.value && assignAgent(order.id, e.target.value)}
+                        className="rounded-lg border border-ink/15 px-2 py-1.5 text-sm"
+                      >
+                        <option value="" disabled>Assign agent</option>
                         {activeAgents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
                       </select>
                     )}

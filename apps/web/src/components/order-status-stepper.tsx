@@ -36,7 +36,7 @@ export function OrderStatusStepper({ type, status }: { type: OrderType; status: 
         const reached = i <= currentIndex;
         const isCurrent = i === currentIndex;
         return (
-          <div key={step.status} className="flex flex-1 items-center last:flex-none">
+          <div key={step.status} className="flex flex-1 items-start last:flex-none">
             <div className="flex flex-col items-center gap-1.5">
               <div
                 className={`flex h-6 w-6 items-center justify-center rounded-full transition-colors ${
@@ -48,7 +48,11 @@ export function OrderStatusStepper({ type, status }: { type: OrderType; status: 
               <span className={`text-[10px] font-bold ${reached ? "text-red-700" : "text-ink/40"}`}>{step.label}</span>
             </div>
             {i < steps.length - 1 && (
-              <div className={`mx-1 h-1 flex-1 rounded-full transition-colors duration-500 ${i < currentIndex ? "bg-red-500" : "bg-ink/10"}`} />
+              // mt-[10px] centers this on the h-6 circle above (half of 24px, minus
+              // half the bar's own 4px height) regardless of whether this step's
+              // label wraps to one or two lines — items-start on the row above
+              // means this no longer gets centered against the taller column.
+              <div className={`mx-1 mt-[10px] h-1 flex-1 rounded-full transition-colors duration-500 ${i < currentIndex ? "bg-red-500" : "bg-ink/10"}`} />
             )}
           </div>
         );
