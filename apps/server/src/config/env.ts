@@ -9,6 +9,13 @@ const envSchema = z.object({
   JWT_EXPIRES_IN: z.string().default("7d"),
   WEB_ORIGIN: z.string().default("http://localhost:3002"),
   OTP_TTL_MINUTES: z.coerce.number().default(5),
+  // WhatsApp Cloud API — optional. Unset in local dev (falls back to
+  // console-logging the code); set in production to actually send OTPs.
+  WHATSAPP_ACCESS_TOKEN: z.string().optional(),
+  WHATSAPP_PHONE_NUMBER_ID: z.string().optional(),
+  WHATSAPP_OTP_TEMPLATE_NAME: z.string().default("otp_login"),
+  WHATSAPP_OTP_TEMPLATE_LANG: z.string().default("en_US"),
+  WHATSAPP_DEFAULT_COUNTRY_CODE: z.string().default("91"),
 });
 
 const parsed = envSchema.safeParse(process.env);
