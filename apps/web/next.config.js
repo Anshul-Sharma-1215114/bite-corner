@@ -22,6 +22,14 @@ const nextConfig = {
     return [
       { source: "/api/:path*", destination: `${target}/api/:path*` },
       { source: "/uploads/:path*", destination: `${target}/uploads/:path*` },
+      // Live order/menu updates (socket.io-client connects to getApiUrl(),
+      // which resolves to the page's own origin in production — see
+      // src/lib/socket.ts). Vercel's rewrite layer can't proxy a real
+      // WebSocket upgrade to an external origin, so this only carries the
+      // long-polling transport; socket.io-client falls back to it
+      // automatically when the websocket upgrade fails, so it still works,
+      // just without true full-duplex WebSocket.
+      { source: "/socket.io/:path*", destination: `${target}/socket.io/:path*` },
     ];
   },
 };
