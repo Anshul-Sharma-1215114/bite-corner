@@ -3,6 +3,12 @@ const nextConfig = {
   // packages/shared ships raw TypeScript; have Next transpile it instead of
   // requiring a separate build step for the workspace package.
   transpilePackages: ["@bite-corner/shared"],
+  // Next's own trailing-slash redirect fires before rewrites are checked
+  // for the exact "/socket.io/" root path (no segments after it), which
+  // strips the slash socket.io-client actually requests with — breaking
+  // the /socket.io rewrite below. This opts out of that redirect so the
+  // rewrite handles it as-is instead.
+  skipTrailingSlashRedirect: true,
   images: {
     // Uploaded menu/combo photos are served from the API host, which
     // differs by environment and isn't known at build time — no fixed
