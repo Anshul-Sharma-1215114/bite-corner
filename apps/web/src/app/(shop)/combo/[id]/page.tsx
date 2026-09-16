@@ -68,57 +68,67 @@ export default function ComboDetailPage() {
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-6">
-      <div className="relative aspect-video overflow-hidden rounded-2xl bg-yellow-50">
-        {imageUrl ? (
-          <Image src={imageUrl} alt={combo.name} fill sizes="(max-width: 672px) 100vw, 672px" priority className="object-cover" />
-        ) : (
-          <div className="flex h-full items-center justify-center text-yellow-500">
-            <Sparkles className="h-14 w-14" />
-          </div>
-        )}
-      </div>
-
-      <h1 className="mt-4 font-display text-xl font-bold">{combo.name}</h1>
-      {combo.description && <p className="mt-1 text-ink/70">{combo.description}</p>}
-
-      <div className="mt-6 space-y-3">
-        <h2 className="font-semibold text-ink/80">What&apos;s included</h2>
-        {combo.items.map((comboItem) => {
-          const options = substitutionOptions[comboItem.id];
-          return (
-            <Card key={comboItem.id} padded={false} className="p-3">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-ink/60">Qty {comboItem.quantity}</span>
-                {comboItem.swappable && <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-800">Swappable</span>}
+    <main className="mx-auto max-w-5xl px-4 py-8">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="relative">
+          <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[3rem] bg-red-50 sm:-inset-8" />
+          <div className="relative aspect-square overflow-hidden rounded-3xl bg-yellow-50 shadow-card sm:aspect-[4/5]">
+            {imageUrl ? (
+              <Image src={imageUrl} alt={combo.name} fill sizes="(max-width: 672px) 100vw, 50vw" priority className="object-cover" />
+            ) : (
+              <div className="flex h-full items-center justify-center text-yellow-500">
+                <Sparkles className="h-16 w-16" />
               </div>
-              {comboItem.swappable && options?.length ? (
-                <select
-                  value={selections[comboItem.id]}
-                  onChange={(e) => setSelections((prev) => ({ ...prev, [comboItem.id]: e.target.value }))}
-                  className="mt-1 w-full rounded-lg border-2 border-ink/15 px-3 py-2 text-sm"
-                >
-                  <option value={comboItem.menuItemId}>{comboItem.menuItem.name} (default)</option>
-                  {options.map((opt) => <option key={opt.id} value={opt.id}>{opt.name}</option>)}
-                </select>
-              ) : (
-                <div className="mt-1 flex items-center gap-2">
-                  <VegBadge isVeg={comboItem.menuItem.isVeg} />
-                  <span className="font-medium">{comboItem.menuItem.name}</span>
-                </div>
-              )}
-            </Card>
-          );
-        })}
-      </div>
+            )}
+          </div>
+        </div>
 
-      <Card tone="yellow" className="mt-6 flex items-center justify-between">
-        <span className="text-xl font-bold text-red-600">{formatInr(combo.price)}</span>
-        <Button onClick={handleAddToCart}>
-          {added && <Check className="h-4 w-4" aria-hidden="true" />}
-          {added ? "Added!" : "Add to cart"}
-        </Button>
-      </Card>
+        <div>
+          <span className="inline-block rounded-2xl rounded-bl-none bg-yellow-400 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-ink">
+            Combo Deal
+          </span>
+          <h1 className="mt-4 font-display text-2xl font-extrabold sm:text-3xl">{combo.name}</h1>
+          {combo.description && <p className="mt-2 text-ink/70">{combo.description}</p>}
+
+          <div className="mt-6 space-y-3">
+            <h2 className="font-bold text-ink/80">What&apos;s included</h2>
+            {combo.items.map((comboItem) => {
+              const options = substitutionOptions[comboItem.id];
+              return (
+                <Card key={comboItem.id} padded={false} className="p-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-ink/60">Qty {comboItem.quantity}</span>
+                    {comboItem.swappable && <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-800">Swappable</span>}
+                  </div>
+                  {comboItem.swappable && options?.length ? (
+                    <select
+                      value={selections[comboItem.id]}
+                      onChange={(e) => setSelections((prev) => ({ ...prev, [comboItem.id]: e.target.value }))}
+                      className="mt-1 w-full rounded-lg border border-ink/15 px-3 py-2 text-sm"
+                    >
+                      <option value={comboItem.menuItemId}>{comboItem.menuItem.name} (default)</option>
+                      {options.map((opt) => <option key={opt.id} value={opt.id}>{opt.name}</option>)}
+                    </select>
+                  ) : (
+                    <div className="mt-1 flex items-center gap-2">
+                      <VegBadge isVeg={comboItem.menuItem.isVeg} />
+                      <span className="font-medium">{comboItem.menuItem.name}</span>
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
+          </div>
+
+          <Card tone="yellow" className="mt-6 flex items-center justify-between">
+            <span className="text-2xl font-extrabold text-red-600">{formatInr(combo.price)}</span>
+            <Button size="lg" onClick={handleAddToCart}>
+              {added && <Check className="h-4 w-4" aria-hidden="true" />}
+              {added ? "Added!" : "Add to cart"}
+            </Button>
+          </Card>
+        </div>
+      </div>
     </main>
   );
 }

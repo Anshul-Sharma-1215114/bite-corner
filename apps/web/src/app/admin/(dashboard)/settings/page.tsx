@@ -96,15 +96,15 @@ export default function AdminSettingsPage() {
       <Card className="mt-4">
         <h2 className="mb-3 font-semibold">Shop Config</h2>
         <form onSubmit={saveShop} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <label className="flex flex-col gap-1 text-sm">Name<input value={shop.name} onChange={(e) => setShop({ ...shop, name: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm">Delivery fee<input type="number" value={shop.deliveryFee} onChange={(e) => setShop({ ...shop, deliveryFee: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm">Min order value<input type="number" value={shop.minOrderValue} onChange={(e) => setShop({ ...shop, minOrderValue: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm">Tax %<input type="number" value={shop.taxPercent} onChange={(e) => setShop({ ...shop, taxPercent: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm">Open time<input value={shop.openTime} onChange={(e) => setShop({ ...shop, openTime: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm">Close time<input value={shop.closeTime} onChange={(e) => setShop({ ...shop, closeTime: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm sm:col-span-2">Address<input value={shop.address ?? ""} onChange={(e) => setShop({ ...shop, address: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm">UPI ID<input value={shop.upiId ?? ""} onChange={(e) => setShop({ ...shop, upiId: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
-          <label className="flex flex-col gap-1 text-sm">WhatsApp number<input value={shop.whatsappNumber ?? ""} onChange={(e) => setShop({ ...shop, whatsappNumber: e.target.value })} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">Name<input value={shop.name} onChange={(e) => setShop({ ...shop, name: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">Delivery fee<input type="number" value={shop.deliveryFee} onChange={(e) => setShop({ ...shop, deliveryFee: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">Min order value<input type="number" value={shop.minOrderValue} onChange={(e) => setShop({ ...shop, minOrderValue: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">Tax %<input type="number" value={shop.taxPercent} onChange={(e) => setShop({ ...shop, taxPercent: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">Open time<input value={shop.openTime} onChange={(e) => setShop({ ...shop, openTime: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">Close time<input value={shop.closeTime} onChange={(e) => setShop({ ...shop, closeTime: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm sm:col-span-2">Address<input value={shop.address ?? ""} onChange={(e) => setShop({ ...shop, address: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">UPI ID<input value={shop.upiId ?? ""} onChange={(e) => setShop({ ...shop, upiId: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">WhatsApp number<input value={shop.whatsappNumber ?? ""} onChange={(e) => setShop({ ...shop, whatsappNumber: e.target.value })} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
           <div className="sm:col-span-2"><Button type="submit" loading={saving}>Save</Button></div>
         </form>
         {shop.upiId && (
@@ -121,22 +121,22 @@ export default function AdminSettingsPage() {
       </div>
 
       {showCouponForm && (
-        <form onSubmit={createCoupon} className="mb-4 flex flex-col gap-3 rounded-2xl border-2 border-yellow-300 bg-yellow-50 p-4 shadow-soft">
-          <input required placeholder="Code (e.g. FLAT50)" value={couponForm.code} onChange={(e) => setCouponForm((f) => ({ ...f, code: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+        <form onSubmit={createCoupon} className="mb-4 flex flex-col gap-3 rounded-2xl border border-yellow-300 bg-yellow-50 p-4 shadow-soft">
+          <input required placeholder="Code (e.g. FLAT50)" value={couponForm.code} onChange={(e) => setCouponForm((f) => ({ ...f, code: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
           <div className="flex gap-3">
-            <select value={couponForm.type} onChange={(e) => setCouponForm((f) => ({ ...f, type: e.target.value as "FLAT" | "PERCENT" }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm">
+            <select value={couponForm.type} onChange={(e) => setCouponForm((f) => ({ ...f, type: e.target.value as "FLAT" | "PERCENT" }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm">
               <option value="PERCENT">Percent off</option>
               <option value="FLAT">Flat amount off</option>
             </select>
-            <input required type="number" placeholder="Value" value={couponForm.value} onChange={(e) => setCouponForm((f) => ({ ...f, value: e.target.value }))} className="w-28 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+            <input required type="number" placeholder="Value" value={couponForm.value} onChange={(e) => setCouponForm((f) => ({ ...f, value: e.target.value }))} className="w-28 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
           </div>
           <div className="flex gap-3">
-            <input type="number" placeholder="Min order value" value={couponForm.minOrderValue} onChange={(e) => setCouponForm((f) => ({ ...f, minOrderValue: e.target.value }))} className="w-36 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+            <input type="number" placeholder="Min order value" value={couponForm.minOrderValue} onChange={(e) => setCouponForm((f) => ({ ...f, minOrderValue: e.target.value }))} className="w-36 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
             {couponForm.type === "PERCENT" && (
-              <input type="number" placeholder="Max discount (optional)" value={couponForm.maxDiscount} onChange={(e) => setCouponForm((f) => ({ ...f, maxDiscount: e.target.value }))} className="w-40 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+              <input type="number" placeholder="Max discount (optional)" value={couponForm.maxDiscount} onChange={(e) => setCouponForm((f) => ({ ...f, maxDiscount: e.target.value }))} className="w-40 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
             )}
           </div>
-          <label className="flex flex-col gap-1 text-sm">Valid until<input required type="date" value={couponForm.validTo} onChange={(e) => setCouponForm((f) => ({ ...f, validTo: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2" /></label>
+          <label className="flex flex-col gap-1 text-sm">Valid until<input required type="date" value={couponForm.validTo} onChange={(e) => setCouponForm((f) => ({ ...f, validTo: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2" /></label>
           <div className="flex gap-2">
             <Button type="submit" size="sm">Create coupon</Button>
             <Button type="button" variant="outline" size="sm" onClick={() => setShowCouponForm(false)}>Cancel</Button>

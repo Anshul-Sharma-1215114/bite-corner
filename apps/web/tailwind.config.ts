@@ -5,25 +5,27 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Bite Corner brand palette: vivid red + golden yellow, on a
-        // bright near-white background — energetic fast-food, not
-        // home-style. 500/600 anchor on the brand hexes; other steps are
-        // generated tints/shades at the same hue/saturation.
+        // Retuned to a clean, bold QSR palette: red + yellow on neutral
+        // white/light-gray (not a warm cream) — a widely-used fast-food
+        // color convention (red = appetite/urgency, yellow = optimism),
+        // not any one brand's proprietary trade dress. 500/600 anchor the
+        // scale; other steps are generated tints/shades at the same
+        // hue/saturation.
         paper: {
           50: "#FFFFFF",
-          100: "#FFF7ED",
+          100: "#F5F5F5",
         },
         red: {
-          50: "hsl(355, 90%, 96%)",
-          100: "hsl(355, 88%, 91%)",
-          200: "hsl(355, 86%, 82%)",
-          300: "hsl(355, 84%, 72%)",
-          400: "hsl(355, 82%, 62%)",
-          500: "#EF3340",
-          600: "hsl(355, 78%, 45%)",
-          700: "hsl(355, 80%, 37%)",
-          800: "hsl(355, 82%, 29%)",
-          900: "hsl(355, 84%, 21%)",
+          50: "hsl(5, 78%, 96%)",
+          100: "hsl(5, 76%, 91%)",
+          200: "hsl(5, 74%, 82%)",
+          300: "hsl(5, 72%, 68%)",
+          400: "hsl(5, 74%, 54%)",
+          500: "#DA291C",
+          600: "hsl(5, 82%, 38%)",
+          700: "hsl(5, 84%, 31%)",
+          800: "hsl(5, 86%, 24%)",
+          900: "hsl(5, 88%, 18%)",
         },
         yellow: {
           50: "hsl(45, 100%, 95%)",
@@ -40,14 +42,17 @@ const config: Config = {
         ink: "#241A14",
       },
       fontFamily: {
-        display: ["var(--font-fredoka)", "system-ui", "sans-serif"],
+        // One clean bold sans for both — headlines are just heavier
+        // weights of the same body face, not a separate "fun" display
+        // font. Keeps the whole UI reading as one confident, corporate
+        // brand voice rather than a playful/cartoon one.
+        display: ["var(--font-poppins)", "system-ui", "sans-serif"],
         body: ["var(--font-poppins)", "system-ui", "sans-serif"],
       },
       boxShadow: {
         soft: "0 2px 8px -2px rgba(36,26,20,0.10)",
         card: "0 6px 20px -4px rgba(36,26,20,0.16)",
         lifted: "0 14px 36px -8px rgba(36,26,20,0.24)",
-        pop: "0 4px 0 0 rgba(0,0,0,0.15)",
       },
       keyframes: {
         shimmer: {
@@ -59,31 +64,40 @@ const config: Config = {
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         scaleIn: {
-          "0%": { opacity: "0", transform: "scale(0.94)" },
+          "0%": { opacity: "0", transform: "scale(0.96)" },
           "100%": { opacity: "1", transform: "scale(1)" },
-        },
-        bounceIn: {
-          "0%": { transform: "scale(1)" },
-          "40%": { transform: "scale(1.18)" },
-          "70%": { transform: "scale(0.94)" },
-          "100%": { transform: "scale(1)" },
-        },
-        wiggle: {
-          "0%, 100%": { transform: "rotate(-3deg)" },
-          "50%": { transform: "rotate(3deg)" },
         },
         marquee: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        // Scroll-reveal: sections/cards fade + rise into place the first
+        // time they enter the viewport (toggled via a small IntersectionObserver
+        // hook, not on every render).
+        riseIn: {
+          "0%": { opacity: "0", transform: "translateY(24px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        // Hero carousel slide crossfade.
+        slideFade: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        // Header brand strip — slow color sweep across the red/yellow gradient.
+        gradientShift: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
       },
       animation: {
         shimmer: "shimmer 1.6s linear infinite",
         fadeIn: "fadeIn 0.25s ease-out",
         scaleIn: "scaleIn 0.2s ease-out",
-        bounceIn: "bounceIn 0.45s ease-in-out",
-        wiggle: "wiggle 0.4s ease-in-out",
         marquee: "marquee 18s linear infinite",
+        riseIn: "riseIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards",
+        slideFade: "slideFade 0.5s ease-out",
+        gradientShift: "gradientShift 3s ease infinite",
       },
     },
   },

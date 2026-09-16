@@ -5,11 +5,11 @@ export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "dan
 export type ButtonSize = "sm" | "md" | "lg";
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: "bg-red-500 text-white shadow-pop hover:bg-red-600 active:shadow-none active:translate-y-1",
-  secondary: "bg-yellow-400 text-ink shadow-pop hover:bg-yellow-500 active:shadow-none active:translate-y-1",
-  outline: "border-2 border-red-300 text-red-600 hover:bg-red-50",
+  primary: "bg-red-500 text-white shadow-soft hover:bg-red-600 active:bg-red-700",
+  secondary: "bg-yellow-400 text-ink shadow-soft hover:bg-yellow-500 active:bg-yellow-600",
+  outline: "border border-red-300 text-red-600 hover:bg-red-50",
   ghost: "text-ink/70 hover:bg-red-50",
-  danger: "border-2 border-red-300 text-red-600 hover:bg-red-50",
+  danger: "border border-red-300 text-red-600 hover:bg-red-50",
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
@@ -29,7 +29,7 @@ export function buttonClasses({
   fullWidth?: boolean;
   className?: string;
 }): string {
-  return `inline-flex items-center justify-center gap-1.5 rounded-full font-display font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 disabled:active:translate-y-0 ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]} ${fullWidth ? "w-full" : ""} ${className}`;
+  return `inline-flex items-center justify-center gap-1.5 rounded-full font-display font-bold transition disabled:cursor-not-allowed disabled:opacity-40 ${VARIANT_CLASSES[variant]} ${SIZE_CLASSES[size]} ${fullWidth ? "w-full" : ""} ${className}`;
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

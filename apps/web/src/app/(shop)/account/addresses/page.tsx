@@ -81,18 +81,18 @@ function AddressesContent() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mb-6 flex flex-col gap-3 rounded-2xl border-2 border-red-100 bg-white p-4 shadow-soft">
+        <form onSubmit={handleSubmit} className="mb-6 flex flex-col gap-3 rounded-2xl border border-red-100 bg-white p-4 shadow-soft">
           <div className="flex gap-2">
             {(["HOME", "WORK", "OTHER"] as const).map((l) => (
               <Chip type="button" key={l} size="sm" active={form.label === l} onClick={() => setForm((f) => ({ ...f, label: l }))}>{l}</Chip>
             ))}
           </div>
-          <input required placeholder="House / flat no., building" value={form.line1} onChange={(e) => setForm((f) => ({ ...f, line1: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-          <input placeholder="Landmark (optional)" value={form.landmark} onChange={(e) => setForm((f) => ({ ...f, landmark: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+          <input required placeholder="House / flat no., building" value={form.line1} onChange={(e) => setForm((f) => ({ ...f, line1: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+          <input placeholder="Landmark (optional)" value={form.landmark} onChange={(e) => setForm((f) => ({ ...f, landmark: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
           <div className="flex flex-wrap gap-3">
-            <input required placeholder="Area" value={form.area} onChange={(e) => setForm((f) => ({ ...f, area: e.target.value }))} className="flex-1 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-            <input required placeholder="City" value={form.city} onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))} className="flex-1 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-            <input required placeholder="Pincode" value={form.pincode} onChange={(e) => setForm((f) => ({ ...f, pincode: e.target.value }))} className="w-28 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+            <input required placeholder="Area" value={form.area} onChange={(e) => setForm((f) => ({ ...f, area: e.target.value }))} className="flex-1 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+            <input required placeholder="City" value={form.city} onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))} className="flex-1 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+            <input required placeholder="Pincode" value={form.pincode} onChange={(e) => setForm((f) => ({ ...f, pincode: e.target.value }))} className="w-28 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}
           <div className="flex gap-2">

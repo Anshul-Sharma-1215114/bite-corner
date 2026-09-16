@@ -8,7 +8,7 @@ export function Skeleton({ className = "" }: { className?: string }) {
 
 export function ItemCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border-2 border-red-100 bg-white shadow-soft">
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-red-100 bg-white shadow-soft">
       <Skeleton className="aspect-[4/3] rounded-none" />
       <div className="flex flex-1 flex-col gap-2 p-4">
         <Skeleton className="h-4 w-3/4" />
@@ -24,7 +24,7 @@ export function ItemCardSkeleton() {
 
 export function ComboCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-3xl border-2 border-yellow-200 bg-white shadow-soft">
+    <div className="flex flex-col overflow-hidden rounded-3xl border border-yellow-200 bg-white shadow-soft">
       <Skeleton className="h-8 w-full rounded-none" />
       <div className="flex flex-col gap-2 p-5">
         <Skeleton className="h-5 w-2/3" />
@@ -41,7 +41,7 @@ export function ComboCardSkeleton() {
 
 export function TestimonialCardSkeleton() {
   return (
-    <div className="flex flex-col gap-2 rounded-2xl border-2 border-red-100 bg-white p-5 shadow-soft">
+    <div className="flex flex-col gap-2 rounded-2xl border border-red-100 bg-white p-5 shadow-soft">
       <Skeleton className="h-4 w-24" />
       <Skeleton className="h-3 w-full" />
       <Skeleton className="h-3 w-5/6" />
@@ -52,7 +52,7 @@ export function TestimonialCardSkeleton() {
 
 export function OrderRowSkeleton() {
   return (
-    <div className="rounded-xl border-2 border-red-100 p-4">
+    <div className="rounded-xl border border-red-100 p-4">
       <div className="flex items-center justify-between">
         <Skeleton className="h-4 w-24" />
         <Skeleton className="h-5 w-20 rounded-full" />

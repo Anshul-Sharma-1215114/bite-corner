@@ -16,7 +16,7 @@ export function HowItWorksSection() {
         {STEPS.map((step, i) => (
           <div key={step.title} className="relative flex flex-col items-center text-center">
             {i < STEPS.length - 1 && <div className="absolute left-1/2 top-7 hidden h-0.5 w-full bg-yellow-300 sm:block" />}
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-red-500 text-white shadow-pop">
+            <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-red-500 text-white shadow-soft">
               <step.Icon className="h-6 w-6" aria-hidden="true" />
             </div>
             <h3 className="mt-3 font-display text-sm font-bold text-ink">{i + 1}. {step.title}</h3>

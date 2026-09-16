@@ -211,7 +211,7 @@ function ReviewSection({ orderId, existing }: { orderId: string; existing: { rat
     <Card tone="yellow" className="mt-6">
       <h2 className="mb-2 font-semibold">{submitted ? "Your review" : "Rate this order"}</h2>
       <StarRating rating={rating} onChange={setRating} readOnly={submitted} size="lg" />
-      <textarea disabled={submitted} value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Tell us what you thought (optional)" rows={2} className="mt-2 w-full rounded-lg border-2 border-ink/15 px-3 py-2 text-sm disabled:bg-transparent" />
+      <textarea disabled={submitted} value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Tell us what you thought (optional)" rows={2} className="mt-2 w-full rounded-lg border border-ink/15 px-3 py-2 text-sm disabled:bg-transparent" />
       {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
       {!submitted && <Button variant="secondary" size="sm" onClick={submit} className="mt-2">Submit review</Button>}
     </Card>

@@ -19,10 +19,16 @@ export function ItemCard({ item, showBestsellerBadge = false }: { item: MenuItem
   const imageUrl = resolveImageUrl(item.imageUrl);
 
   return (
-    <Card tone="default" interactive padded={false} className="flex flex-col overflow-hidden">
-      <Link href={`/menu/${item.id}`} className="relative block aspect-[4/3] bg-yellow-50">
+    <Card tone="default" interactive padded={false} className="group flex flex-col overflow-hidden">
+      <Link href={`/menu/${item.id}`} className="relative block aspect-[4/3] overflow-hidden bg-yellow-50">
         {imageUrl ? (
-          <Image src={imageUrl} alt={item.name} fill sizes="(max-width: 640px) 50vw, 33vw" className="object-cover" />
+          <Image
+            src={imageUrl}
+            alt={item.name}
+            fill
+            sizes="(max-width: 640px) 50vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
         ) : (
           <div className="flex h-full items-center justify-center text-red-200">
             <UtensilsCrossed className="h-10 w-10" />
@@ -32,16 +38,16 @@ export function ItemCard({ item, showBestsellerBadge = false }: { item: MenuItem
           <span className="absolute left-2 top-2 rounded-full bg-red-600 px-2.5 py-1 text-xs font-bold text-white shadow-soft">🔥 Bestseller</span>
         )}
       </Link>
-      <div className="flex flex-1 flex-col gap-1 p-4">
+      <div className="flex flex-1 flex-col gap-1 p-3 sm:p-4">
         <div className="flex items-start justify-between gap-2">
-          <Link href={`/menu/${item.id}`} className="font-display font-semibold leading-tight hover:text-red-600">
+          <Link href={`/menu/${item.id}`} className="font-display font-bold leading-tight hover:text-red-600">
             {item.name}
           </Link>
           <VegBadge isVeg={item.isVeg} />
         </div>
         {item.description && <p className="line-clamp-2 text-sm text-ink/60">{item.description}</p>}
-        <div className="mt-auto flex items-center justify-between pt-3">
-          <span className="text-lg font-bold text-red-600">{formatInr(item.price)}</span>
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          <span className="shrink-0 text-base font-bold text-red-600 sm:text-lg">{formatInr(item.price)}</span>
           {quantity > 0 ? (
             <QuantityStepper quantity={quantity} onChange={(next) => updateQuantity(cartLine!.key, next)} />
           ) : (

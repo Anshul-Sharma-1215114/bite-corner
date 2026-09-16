@@ -101,13 +101,13 @@ export default function AdminOrdersPage() {
 
                   <div className="mt-3 flex flex-wrap items-center gap-2">
                     {nextStatuses.length > 0 && (
-                      <select onChange={(e) => e.target.value && updateStatus(order.id, e.target.value as OrderStatus)} defaultValue="" className="rounded-lg border-2 border-ink/15 px-2 py-1.5 text-sm">
+                      <select onChange={(e) => e.target.value && updateStatus(order.id, e.target.value as OrderStatus)} defaultValue="" className="rounded-lg border border-ink/15 px-2 py-1.5 text-sm">
                         <option value="" disabled>Update status...</option>
                         {nextStatuses.map((s) => <option key={s} value={s}>{s.replace(/_/g, " ")}</option>)}
                       </select>
                     )}
                     {order.type === "DELIVERY" && !["CANCELLED", "REJECTED", "DELIVERED", "COMPLETED"].includes(order.status) && (
-                      <select onChange={(e) => e.target.value && assignAgent(order.id, e.target.value)} defaultValue="" className="rounded-lg border-2 border-ink/15 px-2 py-1.5 text-sm">
+                      <select onChange={(e) => e.target.value && assignAgent(order.id, e.target.value)} defaultValue="" className="rounded-lg border border-ink/15 px-2 py-1.5 text-sm">
                         <option value="" disabled>Assign agent...</option>
                         {activeAgents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}
                       </select>

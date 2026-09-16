@@ -15,7 +15,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="mt-16 border-t-4 border-yellow-400 bg-ink text-white">
+    <footer className="mt-16 border-t border-yellow-400/40 bg-ink text-white">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-10 sm:grid-cols-3">
         <div>
           <div className="flex items-center gap-2">

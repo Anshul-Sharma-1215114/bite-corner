@@ -2,6 +2,7 @@ import { CartProvider } from "@/lib/cart-context";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ContactButtons } from "@/components/contact-buttons";
+import { ScrollToTopButton } from "@/components/scroll-to-top-button";
 
 export default function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,6 +13,7 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
         <Footer />
       </div>
       <ContactButtons />
+      <ScrollToTopButton />
     </CartProvider>
   );
 }

@@ -108,7 +108,7 @@ function ItemsTab() {
           ))}
         </div>
         <div className="mt-3 flex gap-2">
-          <input value={newCategory} onChange={(e) => setNewCategory(e.target.value)} placeholder="New category name" className="flex-1 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+          <input value={newCategory} onChange={(e) => setNewCategory(e.target.value)} placeholder="New category name" className="flex-1 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
           <Button size="sm" onClick={addCategory}><Plus className="h-3.5 w-3.5" /> Add</Button>
         </div>
       </Card>
@@ -119,12 +119,12 @@ function ItemsTab() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} encType="multipart/form-data" className="mb-4 flex flex-col gap-3 rounded-2xl border-2 border-red-100 bg-white p-4 shadow-soft">
-          <input required placeholder="Name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-          <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" rows={2} />
+        <form onSubmit={handleSubmit} encType="multipart/form-data" className="mb-4 flex flex-col gap-3 rounded-2xl border border-red-100 bg-white p-4 shadow-soft">
+          <input required placeholder="Name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+          <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" rows={2} />
           <div className="flex flex-wrap gap-3">
-            <input required type="number" step="0.01" placeholder="Price" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="w-32 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-            <select required value={form.categoryId} onChange={(e) => setForm((f) => ({ ...f, categoryId: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm">
+            <input required type="number" step="0.01" placeholder="Price" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="w-32 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+            <select required value={form.categoryId} onChange={(e) => setForm((f) => ({ ...f, categoryId: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm">
               <option value="" disabled>Category</option>
               {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
@@ -227,19 +227,19 @@ function CombosTab() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-3 rounded-2xl border-2 border-yellow-300 bg-yellow-50 p-4 shadow-soft">
-          <input required placeholder="Combo name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-          <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" rows={2} />
-          <input required type="number" step="0.01" placeholder="Combo price" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="w-32 rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+        <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-3 rounded-2xl border border-yellow-300 bg-yellow-50 p-4 shadow-soft">
+          <input required placeholder="Combo name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+          <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" rows={2} />
+          <input required type="number" step="0.01" placeholder="Combo price" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="w-32 rounded-lg border border-ink/15 px-3 py-2 text-sm" />
           <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} className="text-sm" />
 
           <div className="flex flex-col gap-2">
             {comboItems.map((ci, idx) => (
               <div key={idx} className="flex items-center gap-2">
-                <select value={ci.menuItemId} onChange={(e) => setComboItems((prev) => prev.map((p, i) => (i === idx ? { ...p, menuItemId: e.target.value } : p)))} className="flex-1 rounded-lg border-2 border-ink/15 px-2 py-1.5 text-sm">
+                <select value={ci.menuItemId} onChange={(e) => setComboItems((prev) => prev.map((p, i) => (i === idx ? { ...p, menuItemId: e.target.value } : p)))} className="flex-1 rounded-lg border border-ink/15 px-2 py-1.5 text-sm">
                   {items.map((it) => <option key={it.id} value={it.id}>{it.name}</option>)}
                 </select>
-                <input type="number" min={1} value={ci.quantity} onChange={(e) => setComboItems((prev) => prev.map((p, i) => (i === idx ? { ...p, quantity: Number(e.target.value) } : p)))} className="w-16 rounded-lg border-2 border-ink/15 px-2 py-1.5 text-sm" />
+                <input type="number" min={1} value={ci.quantity} onChange={(e) => setComboItems((prev) => prev.map((p, i) => (i === idx ? { ...p, quantity: Number(e.target.value) } : p)))} className="w-16 rounded-lg border border-ink/15 px-2 py-1.5 text-sm" />
                 <label className="flex items-center gap-1 text-xs">
                   <input type="checkbox" checked={ci.swappable} onChange={(e) => setComboItems((prev) => prev.map((p, i) => (i === idx ? { ...p, swappable: e.target.checked } : p)))} /> Swappable
                 </label>

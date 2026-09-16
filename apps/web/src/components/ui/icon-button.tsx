@@ -4,7 +4,7 @@ export type IconButtonSize = "sm" | "md" | "lg";
 const VARIANT_CLASSES: Record<IconButtonVariant, string> = {
   solid: "bg-red-500 text-white hover:bg-red-600 shadow-soft",
   ghost: "text-ink/60 hover:bg-red-50",
-  outline: "border-2 border-red-200 text-red-600 hover:bg-red-50",
+  outline: "border border-red-200 text-red-600 hover:bg-red-50",
 };
 
 const SIZE_CLASSES: Record<IconButtonSize, string> = {

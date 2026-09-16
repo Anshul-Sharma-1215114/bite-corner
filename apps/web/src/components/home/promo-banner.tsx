@@ -32,10 +32,10 @@ export function PromoBanner() {
   const track = [...labels, ...labels];
 
   return (
-    <div className="overflow-hidden border-y-2 border-yellow-500 bg-yellow-400 py-2">
+    <div className="overflow-hidden bg-ink py-2">
       <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
         {track.map((label, i) => (
-          <span key={i} className="flex items-center gap-2 text-sm font-bold text-ink">
+          <span key={i} className="flex items-center gap-2 text-sm font-bold text-yellow-400">
             <Tag className="h-4 w-4" aria-hidden="true" />
             {label}
           </span>

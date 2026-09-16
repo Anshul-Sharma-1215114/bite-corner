@@ -36,11 +36,11 @@ function AccountContent() {
       </Card>
 
       <div className="mt-4 flex flex-col gap-2">
-        <Link href="/account/addresses" className="flex items-center justify-between rounded-xl border-2 border-ink/10 bg-white px-4 py-3 shadow-soft transition hover:bg-red-50">
+        <Link href="/account/addresses" className="flex items-center justify-between rounded-xl border border-ink/10 bg-white px-4 py-3 shadow-soft transition hover:bg-red-50">
           <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-red-500" aria-hidden="true" /> Saved addresses</span>
           <ChevronRight className="h-4 w-4 text-ink/30" aria-hidden="true" />
         </Link>
-        <Link href="/orders" className="flex items-center justify-between rounded-xl border-2 border-ink/10 bg-white px-4 py-3 shadow-soft transition hover:bg-red-50">
+        <Link href="/orders" className="flex items-center justify-between rounded-xl border border-ink/10 bg-white px-4 py-3 shadow-soft transition hover:bg-red-50">
           <span className="flex items-center gap-2"><Receipt className="h-4 w-4 text-red-500" aria-hidden="true" /> Order history</span>
           <ChevronRight className="h-4 w-4 text-ink/30" aria-hidden="true" />
         </Link>

@@ -166,16 +166,16 @@ export default function CartPage() {
           const isUnavailable = unavailableKeys.has(line.key);
           return (
             <Card key={line.key} padded={false} className={`p-3 ${isUnavailable ? "!border-red-200 bg-red-50" : ""}`}>
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="font-medium">{line.name}</p>
+              <div className="flex items-center justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium">{line.name}</p>
                   {isUnavailable && <p className="text-xs font-medium text-red-600">No longer available</p>}
                   {line.swaps?.map((s) => (
-                    <p key={s.comboItemId} className="text-xs text-ink/50">Swapped {s.fromName} → {s.toName}</p>
+                    <p key={s.comboItemId} className="truncate text-xs text-ink/50">Swapped {s.fromName} → {s.toName}</p>
                   ))}
                   <p className="text-sm text-red-600">{formatInr(line.price)}</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
                   {!isUnavailable && <QuantityStepper quantity={line.quantity} onChange={(q) => updateQuantity(line.key, q)} />}
                   <IconButton icon={<Trash2 className="h-4 w-4" />} label="Remove item" variant="ghost" size="sm" className="text-red-600 hover:bg-red-50" onClick={() => removeLine(line.key)} />
                 </div>
@@ -226,7 +226,7 @@ export default function CartPage() {
           </p>
         ) : (
           <div className="flex flex-wrap gap-2">
-            <input value={couponCode} onChange={(e) => setCouponCode(e.target.value)} placeholder="Enter coupon code" className="flex-1 rounded-full border-2 border-ink/15 bg-white px-4 py-2 text-sm shadow-soft focus:border-red-400 focus:outline-none" />
+            <input value={couponCode} onChange={(e) => setCouponCode(e.target.value)} placeholder="Enter coupon code" className="flex-1 rounded-full border border-ink/15 bg-white px-4 py-2 text-sm shadow-soft focus:border-red-400 focus:outline-none" />
             <Button variant="outline" size="sm" onClick={applyCoupon}>Apply</Button>
           </div>
         )}
@@ -244,7 +244,7 @@ export default function CartPage() {
         )}
       </div>
 
-      <textarea value={specialInstructions} onChange={(e) => setSpecialInstructions(e.target.value)} placeholder="Any special instructions? (optional)" className="mt-4 w-full rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" rows={2} />
+      <textarea value={specialInstructions} onChange={(e) => setSpecialInstructions(e.target.value)} placeholder="Any special instructions? (optional)" className="mt-4 w-full rounded-lg border border-ink/15 px-3 py-2 text-sm" rows={2} />
 
       <Card className="mt-6 text-sm">
         <div className="flex justify-between"><span>Item total</span><span>{formatInr(itemsTotal)}</span></div>

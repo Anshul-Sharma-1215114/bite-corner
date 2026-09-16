@@ -47,7 +47,7 @@ export function TestimonialsSection() {
 
       <div className="mt-8 flex flex-wrap justify-center gap-2">
         {TRUST_BADGES.map((badge) => (
-          <span key={badge} className="rounded-full border-2 border-yellow-300 bg-yellow-50 px-4 py-1.5 text-xs font-bold text-ink/80">
+          <span key={badge} className="rounded-full border border-yellow-300 bg-yellow-50 px-4 py-1.5 text-xs font-bold text-ink/80">
             {badge}
           </span>
         ))}

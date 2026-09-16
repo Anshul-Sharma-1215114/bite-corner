@@ -76,12 +76,12 @@ export default function AdminDeliveryPage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-3 rounded-2xl border-2 border-red-100 bg-white p-4 shadow-soft">
-          <input required placeholder="Name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-          <input required type="email" placeholder="Email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-          <input required placeholder="Phone" value={form.phone} onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-          <input required type="password" placeholder="Password" value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
-          <input placeholder="Vehicle number (optional)" value={form.vehicleNumber} onChange={(e) => setForm((f) => ({ ...f, vehicleNumber: e.target.value }))} className="rounded-lg border-2 border-ink/15 px-3 py-2 text-sm" />
+        <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-3 rounded-2xl border border-red-100 bg-white p-4 shadow-soft">
+          <input required placeholder="Name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+          <input required type="email" placeholder="Email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+          <input required placeholder="Phone" value={form.phone} onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+          <input required type="password" placeholder="Password" value={form.password} onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
+          <input placeholder="Vehicle number (optional)" value={form.vehicleNumber} onChange={(e) => setForm((f) => ({ ...f, vehicleNumber: e.target.value }))} className="rounded-lg border border-ink/15 px-3 py-2 text-sm" />
           <div className="flex gap-2">
             <Button type="submit" size="sm">Create agent</Button>
             <Button type="button" variant="outline" size="sm" onClick={() => setShowForm(false)}>Cancel</Button>

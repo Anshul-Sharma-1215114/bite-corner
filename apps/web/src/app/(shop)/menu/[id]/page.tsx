@@ -66,46 +66,60 @@ export default function MenuItemDetailPage() {
   const imageUrl = resolveImageUrl(item.imageUrl);
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-6">
-      <div className="relative aspect-video overflow-hidden rounded-2xl bg-yellow-50">
-        {imageUrl ? (
-          <Image src={imageUrl} alt={item.name} fill sizes="(max-width: 672px) 100vw, 672px" priority className="object-cover" />
-        ) : (
-          <div className="flex h-full items-center justify-center text-red-200">
-            <UtensilsCrossed className="h-14 w-14" />
+    <main className="mx-auto max-w-5xl px-4 py-8">
+      <div className="grid grid-cols-1 items-center gap-8 sm:grid-cols-2">
+        <div className="relative">
+          <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[3rem] bg-yellow-100 sm:-inset-8" />
+          <div className="relative aspect-square overflow-hidden rounded-3xl bg-yellow-50 shadow-card sm:aspect-[4/5]">
+            {imageUrl ? (
+              <Image src={imageUrl} alt={item.name} fill sizes="(max-width: 672px) 100vw, 50vw" priority className="object-cover" />
+            ) : (
+              <div className="flex h-full items-center justify-center text-red-200">
+                <UtensilsCrossed className="h-16 w-16" />
+              </div>
+            )}
           </div>
-        )}
-      </div>
-
-      <div className="mt-4 flex items-start justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <VegBadge isVeg={item.isVeg} />
-            <h1 className="font-display text-xl font-bold">{item.name}</h1>
-          </div>
-          {item.category && <p className="text-sm text-ink/50">{item.category.name}</p>}
         </div>
-        <IconButton icon={<Heart className={`h-5 w-5 ${isFavorite ? "fill-red-500 text-red-500" : "text-ink/30"}`} />} label="Toggle favorite" variant="ghost" onClick={toggleFavorite} />
+
+        <div>
+          {item.category && (
+            <span className="inline-block rounded-2xl rounded-bl-none bg-red-500 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-white">
+              {item.category.name}
+            </span>
+          )}
+          <div className="mt-4 flex items-center gap-2">
+            <VegBadge isVeg={item.isVeg} />
+            <h1 className="font-display text-2xl font-extrabold sm:text-3xl">{item.name}</h1>
+            <IconButton
+              icon={<Heart className={`h-5 w-5 ${isFavorite ? "fill-red-500 text-red-500" : "text-ink/30"}`} />}
+              label="Toggle favorite"
+              variant="ghost"
+              onClick={toggleFavorite}
+              className="ml-auto"
+            />
+          </div>
+
+          {item.description && <p className="mt-3 text-ink/70">{item.description}</p>}
+
+          <Card className="mt-6 flex items-center justify-between gap-2">
+            <span className="truncate text-2xl font-extrabold text-red-600">{formatInr(item.price)}</span>
+            {!item.available ? (
+              <span className="shrink-0 rounded-full bg-ink/10 px-4 py-2 text-sm font-semibold text-ink/50">Currently sold out</span>
+            ) : quantity > 0 ? (
+              <QuantityStepper quantity={quantity} onChange={(next) => updateQuantity(cartLine!.key, next)} />
+            ) : (
+              <Button
+                size="lg"
+                onClick={() =>
+                  addLine({ kind: "item", refId: item.id, name: item.name, price: Number(item.price), isVeg: item.isVeg, quantity: 1, imageUrl: item.imageUrl })
+                }
+              >
+                Add to cart
+              </Button>
+            )}
+          </Card>
+        </div>
       </div>
-
-      {item.description && <p className="mt-3 text-ink/70">{item.description}</p>}
-
-      <Card className="mt-6 flex items-center justify-between">
-        <span className="text-xl font-bold text-red-600">{formatInr(item.price)}</span>
-        {!item.available ? (
-          <span className="rounded-full bg-ink/10 px-4 py-2 text-sm font-semibold text-ink/50">Currently sold out</span>
-        ) : quantity > 0 ? (
-          <QuantityStepper quantity={quantity} onChange={(next) => updateQuantity(cartLine!.key, next)} />
-        ) : (
-          <Button
-            onClick={() =>
-              addLine({ kind: "item", refId: item.id, name: item.name, price: Number(item.price), imageUrl: item.imageUrl, isVeg: item.isVeg, quantity: 1 })
-            }
-          >
-            Add to cart
-          </Button>
-        )}
-      </Card>
     </main>
   );
 }

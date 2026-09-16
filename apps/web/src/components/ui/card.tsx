@@ -1,9 +1,9 @@
 export type CardTone = "default" | "yellow" | "muted";
 
 const TONE_CLASSES: Record<CardTone, string> = {
-  default: "border-2 border-red-100 bg-white",
-  yellow: "border-2 border-yellow-300 bg-yellow-50",
-  muted: "border-2 border-ink/10 bg-paper-100",
+  default: "border border-black/5 bg-white",
+  yellow: "border border-yellow-200 bg-yellow-50",
+  muted: "border border-black/5 bg-paper-100",
 };
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {

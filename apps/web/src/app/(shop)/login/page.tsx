@@ -74,7 +74,7 @@ export default function CustomerLoginPage() {
           <form onSubmit={handleRequestOtp} className="flex flex-col gap-4">
             <label className="flex flex-col gap-1 text-sm">
               Phone number
-              <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="9876543210" className="rounded-lg border-2 border-ink/15 px-4 py-2 focus:border-red-400 focus:outline-none" />
+              <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="9876543210" className="rounded-lg border border-ink/15 px-4 py-2 focus:border-red-400 focus:outline-none" />
             </label>
             {error && <p className="text-sm text-red-600">{error}</p>}
             <Button type="submit" loading={submitting}>{submitting ? "Sending..." : "Send OTP"}</Button>
@@ -88,11 +88,11 @@ export default function CustomerLoginPage() {
             )}
             <label className="flex flex-col gap-1 text-sm">
               Your name (first time only)
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Optional" className="rounded-lg border-2 border-ink/15 px-4 py-2 focus:border-red-400 focus:outline-none" />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Optional" className="rounded-lg border border-ink/15 px-4 py-2 focus:border-red-400 focus:outline-none" />
             </label>
             <label className="flex flex-col gap-1 text-sm">
               Enter 4-digit OTP
-              <input type="text" required maxLength={4} value={code} onChange={(e) => setCode(e.target.value)} className="rounded-lg border-2 border-ink/15 px-4 py-2 tracking-widest focus:border-red-400 focus:outline-none" />
+              <input type="text" required maxLength={4} value={code} onChange={(e) => setCode(e.target.value)} className="rounded-lg border border-ink/15 px-4 py-2 tracking-widest focus:border-red-400 focus:outline-none" />
             </label>
             {error && <p className="text-sm text-red-600">{error}</p>}
             <Button type="submit" loading={submitting}>{submitting ? "Verifying..." : "Verify & continue"}</Button>

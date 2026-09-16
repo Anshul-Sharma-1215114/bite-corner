@@ -7,7 +7,7 @@ import type { Category, MenuItem } from "@/lib/types";
 import { ItemCard } from "@/components/item-card";
 import { ItemCardSkeleton } from "@/components/skeleton";
 import { getSocket } from "@/lib/socket";
-import { Chip } from "@/components/ui/chip";
+import { Tabs } from "@/components/ui/tabs";
 import { EmptyState } from "@/components/ui/empty-state";
 import { StickyCartBar } from "@/components/sticky-cart-bar";
 
@@ -56,15 +56,15 @@ export default function MenuPage() {
     <main className="mx-auto max-w-5xl px-4 py-6">
       <h1 className="mb-4 font-display text-2xl font-bold text-ink">Our Menu</h1>
 
-      {/* top offset matches <Header>'s measured rendered height (108.5px)
+      {/* top offset matches <Header>'s measured rendered height (103.5px)
           so this tucks in flush below it instead of leaving a gap items
           scroll through. */}
-      <div className="sticky top-[108.5px] z-10 -mx-4 mb-4 flex items-center gap-2 overflow-x-auto bg-white/95 px-4 py-2 backdrop-blur">
-        <Chip active={activeCategory === null} onClick={() => setActiveCategory(null)}>All</Chip>
-        {categories.map((cat) => (
-          <Chip key={cat.id} active={activeCategory === cat.id} onClick={() => setActiveCategory(cat.id)}>{cat.name}</Chip>
-        ))}
-      </div>
+      <Tabs
+        items={[{ key: "__all__", label: "All" }, ...categories.map((c) => ({ key: c.id, label: c.name }))]}
+        active={activeCategory ?? "__all__"}
+        onChange={setActiveCategory}
+        className="sticky top-[103.5px] z-10 -mx-4 mb-4 border-b border-black/5 bg-white/95 px-4 py-2 backdrop-blur"
+      />
 
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <div className="relative min-w-[200px] flex-1">
@@ -74,15 +74,15 @@ export default function MenuPage() {
             placeholder="Search for a dish..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-full border-2 border-ink/10 bg-white py-2 pl-10 pr-4 text-sm shadow-soft focus:border-red-400 focus:outline-none"
+            className="w-full rounded-full border border-ink/10 bg-white py-2 pl-10 pr-4 text-sm shadow-soft focus:border-red-400 focus:outline-none"
           />
         </div>
-        <select value={vegFilter} onChange={(e) => setVegFilter(e.target.value as VegFilter)} className="rounded-full border-2 border-ink/10 bg-white px-3 py-2 text-sm shadow-soft">
+        <select value={vegFilter} onChange={(e) => setVegFilter(e.target.value as VegFilter)} className="rounded-full border border-ink/10 bg-white px-3 py-2 text-sm shadow-soft">
           <option value="all">Veg &amp; Non-veg</option>
           <option value="veg">Veg only</option>
           <option value="nonveg">Non-veg only</option>
         </select>
-        <select value={maxPrice ?? ""} onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : null)} className="rounded-full border-2 border-ink/10 bg-white px-3 py-2 text-sm shadow-soft">
+        <select value={maxPrice ?? ""} onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : null)} className="rounded-full border border-ink/10 bg-white px-3 py-2 text-sm shadow-soft">
           <option value="">Any price</option>
           <option value="150">Under ₹150</option>
           <option value="250">Under ₹250</option>
