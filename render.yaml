@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: bite-corner-api
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install --include=dev && npm run build -w packages/shared && npx prisma generate --schema apps/server/prisma/schema.prisma && npm run build -w apps/server
+    startCommand: npx prisma migrate deploy --schema apps/server/prisma/schema.prisma && node apps/server/dist/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: WEB_ORIGIN
+        sync: false
+      - key: OTP_TTL_MINUTES
+        value: "5"
+      - key: SEED_ADMIN_PASSWORD
+        sync: false
+      - key: SEED_AGENT_PASSWORD
+        sync: false
