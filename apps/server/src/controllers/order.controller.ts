@@ -201,8 +201,6 @@ const STATUS_TIMESTAMP_FIELD: Partial<Record<OrderStatus, string>> = {
   REJECTED: "cancelledAt",
 };
 
-const AGENT_ALLOWED_STATUSES = new Set<OrderStatus>(["OUT_FOR_DELIVERY", "DELIVERED"]);
-
 const updateStatusSchema = z.object({
   status: z.enum(["PLACED", "CONFIRMED", "PREPARING", "READY_FOR_PICKUP", "OUT_FOR_DELIVERY", "DELIVERED", "COMPLETED", "REJECTED", "CANCELLED"]),
 });
@@ -212,12 +210,15 @@ export async function updateOrderStatus(req: Request, res: Response) {
   const order = await prisma.order.findUnique({ where: { id: req.params.id } });
   if (!order) return res.status(404).json({ error: "Order not found" });
 
-  if (req.user!.role === "DELIVERY_AGENT") {
-    if (order.deliveryAgentId !== req.user!.id) return res.status(403).json({ error: "Not your order" });
-    if (!AGENT_ALLOWED_STATUSES.has(status)) return res.status(403).json({ error: "Not authorized to set that status" });
+  if (req.user!.role === "DELIVERY_AGENT" && order.deliveryAgentId !== req.user!.id) {
+    return res.status(403).json({ error: "Not your order" });
   }
 
-  if (!getNextOrderStatuses(order.status, order.type).includes(status)) {
+  // Role-aware: an admin can no longer push a DELIVERY order straight to
+  // OUT_FOR_DELIVERY themselves — see getNextOrderStatuses in
+  // @bite-corner/shared for why. This is the actual enforcement; the
+  // dropdown just mirrors it so the two can't drift apart.
+  if (!getNextOrderStatuses(order.status, order.type, req.user!.role).includes(status)) {
     return res.status(400).json({ error: `Cannot move from ${order.status} to ${status}` });
   }
 
