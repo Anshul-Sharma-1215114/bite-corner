@@ -1,22 +1,28 @@
-// In production the web app and API live on completely different domains,
-// so NEXT_PUBLIC_API_URL — baked in at build time — is the source of truth
-// whenever it's set.
+// Local/LAN dev: the API runs on a fixed port on the same host the page
+// was loaded through, so requests are resolved at runtime from the page's
+// own origin — this works correctly from localhost, a LAN IP, whatever.
 //
-// Without it (local/LAN dev), the API is resolved at runtime from the
-// page's own origin on a fixed port instead, so the app works correctly
-// from any host the page is loaded through.
-//
-// This matters beyond convenience: the auth cookie is `sameSite: "lax"`,
-// which browsers withhold on cross-site fetch/XHR requests. Deriving the
-// dev-mode API host from `window.location.hostname` guarantees the page
-// host and API host always match.
+// Deployed (Vercel): the web app and API live on completely different
+// domains, and browsers withhold cookies on cross-site requests — not
+// just with SameSite=Lax, but increasingly even with SameSite=None, since
+// third-party cookies are being phased out generally. So instead of
+// pointing at the API's own domain, requests go through same-origin
+// (empty base = relative path) and next.config.js rewrites proxy them to
+// the real API server-side, where cross-site cookie rules don't apply.
 const API_PORT = process.env.NEXT_PUBLIC_API_PORT ?? "4002";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+function isLocalOrLanHost(hostname: string): boolean {
+  return hostname === "localhost" || /^(\d{1,3}\.){3}\d{1,3}$/.test(hostname);
+}
 
 export function getApiUrl(): string {
   if (API_URL) return API_URL;
   if (typeof window !== "undefined") {
-    return `${window.location.protocol}//${window.location.hostname}:${API_PORT}`;
+    if (isLocalOrLanHost(window.location.hostname)) {
+      return `${window.location.protocol}//${window.location.hostname}:${API_PORT}`;
+    }
+    return ""; // same-origin, proxied via next.config.js rewrites
   }
   return `http://localhost:${API_PORT}`;
 }
